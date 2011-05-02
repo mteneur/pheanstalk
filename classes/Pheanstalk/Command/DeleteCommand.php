@@ -1,4 +1,6 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Response;
 
 /**
  * The 'delete' command.
@@ -8,9 +10,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_DeleteCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class DeleteCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_job;
 
@@ -35,9 +37,9 @@ class Pheanstalk_Command_DeleteCommand
 	 */
 	public function parseResponse($responseLine, $responseData)
 	{
-		if ($responseLine == Pheanstalk_Response::RESPONSE_NOT_FOUND)
+		if ($responseLine == Response::RESPONSE_NOT_FOUND)
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new \Pheanstalk\Exception\ServerException(sprintf(
 				'Cannot delete job %d: %s',
 				$this->_job->getId(),
 				$responseLine

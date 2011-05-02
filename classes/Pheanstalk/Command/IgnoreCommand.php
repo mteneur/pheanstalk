@@ -1,4 +1,6 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Response;
 
 /**
  * The 'ignore' command.
@@ -8,9 +10,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_IgnoreCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class IgnoreCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_tube;
 
@@ -41,14 +43,14 @@ class Pheanstalk_Command_IgnoreCommand
 				'count' => (int)$matches[1]
 			));
 		}
-		elseif ($responseLine == Pheanstalk_Response::RESPONSE_NOT_IGNORED)
+		elseif ($responseLine == Response::RESPONSE_NOT_IGNORED)
 		{
-			throw new Pheanstalk_Exception_ServerException($responseLine .
+			throw new \Pheanstalk\Exception\ServerException($responseLine .
 				': cannot ignore last tube in watchlist');
 		}
 		else
 		{
-			throw new Pheanstalk_Exception('Unhandled response: '.$responseLine);
+			throw new \Pheanstalk\Exception('Unhandled response: '.$responseLine);
 		}
 	}
 }

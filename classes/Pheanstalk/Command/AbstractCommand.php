@@ -1,4 +1,7 @@
 <?php
+namespace Pheanstalk\Command;
+
+use Pheanstalk\Exception\CommandException;
 
 /**
  * Common functionality for Pheanstalk_Command implementations.
@@ -7,8 +10,8 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-abstract class Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_Command
+abstract class AbstractCommand
+	implements \Pheanstalk\Command
 {
 	/* (non-phpdoc)
 	 * @see Pheanstalk_Command::hasData()
@@ -23,7 +26,7 @@ abstract class Pheanstalk_Command_AbstractCommand
 	 */
 	public function getData()
 	{
-		throw new Pheanstalk_Exception_CommandException('Command has no data');
+		throw new CommandException('Command has no data');
 	}
 
 	/* (non-phpdoc)
@@ -31,7 +34,7 @@ abstract class Pheanstalk_Command_AbstractCommand
 	 */
 	public function getDataLength()
 	{
-		throw new Pheanstalk_Exception_CommandException('Command has no data');
+		throw new CommandException('Command has no data');
 	}
 
 	/* (non-phpdoc)
@@ -64,6 +67,6 @@ abstract class Pheanstalk_Command_AbstractCommand
 	 */
 	protected function _createResponse($name, $data = array())
 	{
-		return new Pheanstalk_Response_ArrayResponse($name, $data);
+		return new \Pheanstalk\Response\ArrayResponse($name, $data);
 	}
 }

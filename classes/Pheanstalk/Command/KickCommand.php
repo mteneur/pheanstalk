@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Command;
 
 /**
  * The 'kick' command.
@@ -10,9 +11,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_KickCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class KickCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_max;
 

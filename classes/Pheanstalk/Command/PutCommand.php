@@ -1,4 +1,6 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Exception;
 
 /**
  * The 'put' command.
@@ -9,9 +11,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_PutCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class PutCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_data;
 	private $_priority;
@@ -84,28 +86,28 @@ class Pheanstalk_Command_PutCommand
 		}
 		elseif (preg_match('#^BURIED (\d)+$#', $responseLine, $matches))
 		{
-			throw new Pheanstalk_Exception(sprintf(
+			throw new Exception(sprintf(
 				'%s: server ran out of memory trying to grow the priority queue data structure.',
 				$responseLine
 			));
 		}
 		elseif (preg_match('#^JOB_TOO_BIG$#', $responseLine))
 		{
-			throw new Pheanstalk_Exception(sprintf(
+			throw new Exception(sprintf(
 				'%s: job data exceeds server-enforced limit',
 				$responseLine
 			));
 		}
 		elseif (preg_match('#^EXPECTED_CRLF#', $responseLine))
 		{
-			throw new Pheanstalk_Exception(sprintf(
+			throw new Exception(sprintf(
 				'%s: CRLF expected',
 				$responseLine
 			));
 		}
 		else
 		{
-			throw new Pheanstalk_Exception(sprintf(
+			throw new Exception(sprintf(
 				'Unhandled response: %s',
 				$responseLine
 			));

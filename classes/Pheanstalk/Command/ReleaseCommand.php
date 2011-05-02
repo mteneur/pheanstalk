@@ -1,4 +1,7 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Response;
+use Pheanstalk\Exception;
 
 /**
  * The 'release' command.
@@ -8,9 +11,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_ReleaseCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class ReleaseCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_job;
 	private $_priority;
@@ -46,18 +49,18 @@ class Pheanstalk_Command_ReleaseCommand
 	 */
 	public function parseResponse($responseLine, $responseData)
 	{
-		if ($responseLine == Pheanstalk_Response::RESPONSE_BURIED)
+		if ($responseLine == Response::RESPONSE_BURIED)
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new Exception\ServerException(sprintf(
 				'Job %s %d: out of memory trying to grow data structure',
 				$this->_job->getId(),
 				$responseLine
 			));
 		}
 
-		if ($responseLine == Pheanstalk_Response::RESPONSE_NOT_FOUND)
+		if ($responseLine == Response::RESPONSE_NOT_FOUND)
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new Exception\ServerException(sprintf(
 				'Job %d %s: does not exist or is not reserved by client',
 				$this->_job->getId(),
 				$responseLine

@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk;
 
 /**
  * An exception originating from the Pheanstalk package
@@ -7,7 +8,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Exception
+class Exception
 	extends Exception
 {
 }

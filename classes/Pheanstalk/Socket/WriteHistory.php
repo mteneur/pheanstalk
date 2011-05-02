@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Socket;
 
 /**
  * A limited history of recent socket write length/success.
@@ -14,7 +15,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Socket_WriteHistory
+class WriteHistory
 {
 	private $_limit;
 	private $_data = array();

@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk;
 
 /**
  * A job in a beanstalkd server
@@ -7,7 +8,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Job
+class Job
 {
 	const STATUS_READY = 'ready';
 	const STATUS_RESERVED = 'reserved';

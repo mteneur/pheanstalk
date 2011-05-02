@@ -1,4 +1,6 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\YamlResponseParser;
 
 /**
  * The 'stats-job' command.
@@ -8,8 +10,8 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_StatsJobCommand
-	extends Pheanstalk_Command_AbstractCommand
+class StatsJobCommand
+	extends AbstractCommand
 {
 	private $_jobId;
 
@@ -34,8 +36,8 @@ class Pheanstalk_Command_StatsJobCommand
 	 */
 	public function getResponseParser()
 	{
-		return new Pheanstalk_YamlResponseParser(
-			Pheanstalk_YamlResponseParser::MODE_DICT
+		return new YamlResponseParser(
+			YamlResponseParser::MODE_DICT
 		);
 	}
 }

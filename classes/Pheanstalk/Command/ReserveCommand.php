@@ -1,4 +1,7 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Response;
+use Pheanstalk\Exception;
 
 /**
  * The 'reserve' command.
@@ -8,9 +11,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_ReserveCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class ReserveCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_timeout;
 
@@ -42,8 +45,8 @@ class Pheanstalk_Command_ReserveCommand
 	 */
 	public function parseResponse($responseLine, $responseData)
 	{
-		if ($responseLine === Pheanstalk_Response::RESPONSE_DEADLINE_SOON ||
-			$responseLine === Pheanstalk_Response::RESPONSE_TIMED_OUT)
+		if ($responseLine === Response::RESPONSE_DEADLINE_SOON ||
+			$responseLine === Response::RESPONSE_TIMED_OUT)
 		{
 			return $this->_createResponse($responseLine);
 		}

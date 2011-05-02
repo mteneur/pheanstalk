@@ -1,4 +1,7 @@
 <?php
+namespace Pheanstalk\Command;
+use Pheanstalk\Response;
+use Pheanstalk\Exception;
 
 /**
  * The 'touch' command.
@@ -13,9 +16,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_TouchCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class TouchCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_job;
 
@@ -40,9 +43,9 @@ class Pheanstalk_Command_TouchCommand
 	 */
 	public function parseResponse($responseLine, $responseData)
 	{
-		if ($responseLine == Pheanstalk_Response::RESPONSE_NOT_FOUND)
+		if ($responseLine == Response::RESPONSE_NOT_FOUND)
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new Exception\ServerException(sprintf(
 				'Job %d %s: does not exist or is not reserved by client',
 				$this->_job->getId(),
 				$responseLine

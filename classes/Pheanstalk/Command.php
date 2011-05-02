@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk;
 
 /**
  * A command to be sent to the beanstalkd server, and response processing logic
@@ -7,7 +8,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-interface Pheanstalk_Command
+interface Command
 {
 	const COMMAND_PUT = 'put';
 	const COMMAND_USE = 'use';

@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Command;
 
 /**
  * The 'list-tube-used' command.
@@ -8,9 +9,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_ListTubeUsedCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class ListTubeUsedCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	/* (non-phpdoc)
 	 * @see Pheanstalk_Command::getCommandLine()

@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk;
 
 /**
  * A response from the beanstalkd server
@@ -7,7 +8,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-interface Pheanstalk_Response
+interface Response
 {
 	// global error reponses
 	const RESPONSE_OUT_OF_MEMORY = 'OUT_OF_MEMORY';

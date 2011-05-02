@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Exception;
 
 /**
  * An exception originating as a beanstalkd server error
@@ -7,7 +8,7 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Exception_ServerUnknownCommandException
-	extends Pheanstalk_Exception_ServerException
+class ServerUnknownCommandException
+	extends ServerException
 {
 }

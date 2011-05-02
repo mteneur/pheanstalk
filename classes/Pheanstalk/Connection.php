@@ -1,4 +1,6 @@
 <?php
+namespace Pheanstalk;
+use Pheanstalk\Response;
 
 /**
  * A connection to a beanstalkd server
@@ -15,18 +17,18 @@ class Pheanstalk_Connection
 
 	// responses which are global errors, mapped to their exception short-names
 	private $_errorResponses = array(
-		Pheanstalk_Response::RESPONSE_OUT_OF_MEMORY => 'OutOfMemory',
-		Pheanstalk_Response::RESPONSE_INTERNAL_ERROR => 'InternalError',
-		Pheanstalk_Response::RESPONSE_DRAINING => 'Draining',
-		Pheanstalk_Response::RESPONSE_BAD_FORMAT => 'BadFormat',
-		Pheanstalk_Response::RESPONSE_UNKNOWN_COMMAND => 'UnknownCommand',
+		Response::RESPONSE_OUT_OF_MEMORY => 'OutOfMemory',
+		Response::RESPONSE_INTERNAL_ERROR => 'InternalError',
+		Response::RESPONSE_DRAINING => 'Draining',
+		Response::RESPONSE_BAD_FORMAT => 'BadFormat',
+		Response::RESPONSE_UNKNOWN_COMMAND => 'UnknownCommand',
 	);
 
 	// responses which are followed by data
 	private $_dataResponses = array(
-		Pheanstalk_Response::RESPONSE_RESERVED,
-		Pheanstalk_Response::RESPONSE_FOUND,
-		Pheanstalk_Response::RESPONSE_OK,
+		Response::RESPONSE_RESERVED,
+		Response::RESPONSE_FOUND,
+		Response::RESPONSE_OK,
 	);
 
 	private $_socket;
@@ -54,7 +56,7 @@ class Pheanstalk_Connection
 	 * @param Pheanstalk_Socket $socket
 	 * @chainable
 	 */
-	public function setSocket(Pheanstalk_Socket $socket)
+	public function setSocket(Socket $socket)
 	{
 		$this->_socket = $socket;
 		return $this;
@@ -62,7 +64,7 @@ class Pheanstalk_Connection
 
 	/**
 	 * @param object $command Pheanstalk_Command
-	 * @return object Pheanstalk_Response
+	 * @return object \Pheanstalk\Response
 	 * @throws Pheanstalk_Exception_ClientException
 	 */
 	public function dispatchCommand($command)
@@ -103,7 +105,7 @@ class Pheanstalk_Connection
 			$crlf = $socket->read(self::CRLF_LENGTH);
 			if ($crlf !== self::CRLF)
 			{
-				throw new Pheanstalk_Exception_ClientException(sprintf(
+				throw new \Pheanstalk\Exception\ClientException(sprintf(
 					'Expected %d bytes of CRLF after %d bytes of data',
 					self::CRLF_LENGTH,
 					$dataLength
@@ -131,7 +133,7 @@ class Pheanstalk_Connection
 	{
 		if (!isset($this->_socket))
 		{
-			$this->_socket = new Pheanstalk_Socket_NativeSocket(
+			$this->_socket = new Socket\NativeSocket(
 				$this->_hostname,
 				$this->_port,
 				$this->_connectTimeout

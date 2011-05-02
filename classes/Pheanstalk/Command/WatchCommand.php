@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Command;
 
 /**
  * The 'watch' command.
@@ -8,9 +9,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_WatchCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class WatchCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_tube;
 

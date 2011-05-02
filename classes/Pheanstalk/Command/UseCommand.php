@@ -1,4 +1,5 @@
 <?php
+namespace Pheanstalk\Command;
 
 /**
  * The 'use' command.
@@ -11,9 +12,9 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Command_UseCommand
-	extends Pheanstalk_Command_AbstractCommand
-	implements Pheanstalk_ResponseParser
+class UseCommand
+	extends AbstractCommand
+	implements \Pheanstalk\ResponseParser
 {
 	private $_tube;
 

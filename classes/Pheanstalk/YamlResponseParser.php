@@ -1,4 +1,7 @@
 <?php
+namespace Pheanstalk;
+use Pheanstalk\Response;
+use Pheanstalk\Exception;
 
 /**
  * A response parser for commands that return a subset of YAML.
@@ -9,8 +12,8 @@
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_YamlResponseParser
-	implements Pheanstalk_ResponseParser
+class YamlResponseParser
+	implements \Pheanstalk\ResponseParser
 {
 	const MODE_LIST = 'list';
 	const MODE_DICT = 'dict';
@@ -30,9 +33,9 @@ class Pheanstalk_YamlResponseParser
 	 */
 	public function parseResponse($responseLine, $responseData)
 	{
-		if ($responseLine == Pheanstalk_Response::RESPONSE_NOT_FOUND)
+		if ($responseLine == Response::RESPONSE_NOT_FOUND)
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new Exception\ServerException(sprintf(
 				'Server reported %s',
 				$responseLine
 			));
@@ -40,7 +43,7 @@ class Pheanstalk_YamlResponseParser
 
 		if (!preg_match('#^OK \d+$#', $responseLine))
 		{
-			throw new Pheanstalk_Exception_ServerException(sprintf(
+			throw new Exception\ServerException(sprintf(
 				'Unhandled response: %s',
 				$responseLine
 			));
@@ -59,7 +62,7 @@ class Pheanstalk_YamlResponseParser
 			foreach ($data as $line)
 			{
 				if (!preg_match('#(\S+):\s*(.*)#', $line, $matches))
-					throw new Pheanstalk_Exception("YAML parse error for line: $line");
+					throw new Exception("YAML parse error for line: $line");
 
 				list(, $key, $value) = $matches;
 
@@ -68,7 +71,7 @@ class Pheanstalk_YamlResponseParser
 			$data = $array;
 		}
 
-		return new Pheanstalk_Response_ArrayResponse('OK', $data);
+		return new Response\ArrayResponse('OK', $data);
 	}
 
 	/**

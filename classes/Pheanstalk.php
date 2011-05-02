@@ -1,4 +1,8 @@
 <?php
+namespace Pheanstalk;
+use Pheanstalk\Command;
+use Pheanstalk\Job;
+use Pheanstalk\Response;
 
 /**
  * Pheanstalk is a pure PHP 5.2+ client for the beanstalkd workqueue.
@@ -44,23 +48,23 @@ class Pheanstalk
 	/**
 	 * Puts a job into a 'buried' state, revived only by 'kick' command.
 	 *
-	 * @param Pheanstalk_Job $job
+	 * @param Job $job
 	 * @return void
 	 */
 	public function bury($job, $priority = self::DEFAULT_PRIORITY)
 	{
-		$this->_dispatch(new Pheanstalk_Command_BuryCommand($job, $priority));
+		$this->_dispatch(new Command\BuryCommand($job, $priority));
 	}
 
 	/**
 	 * Permanently deletes a job.
 	 *
-	 * @param object $job Pheanstalk_Job
+	 * @param object $job Job
 	 * @chainable
 	 */
 	public function delete($job)
 	{
-		$this->_dispatch(new Pheanstalk_Command_DeleteCommand($job));
+		$this->_dispatch(new Command\DeleteCommand($job));
 		return $this;
 	}
 
@@ -72,7 +76,7 @@ class Pheanstalk
 	 */
 	public function ignore($tube)
 	{
-		$this->_dispatch(new Pheanstalk_Command_IgnoreCommand($tube));
+		$this->_dispatch(new Command\IgnoreCommand($tube));
 		return $this;
 	}
 
@@ -86,7 +90,7 @@ class Pheanstalk
 	 */
 	public function kick($max)
 	{
-		$response = $this->_dispatch(new Pheanstalk_Command_KickCommand($max));
+		$response = $this->_dispatch(new Command\KickCommand($max));
 		return $response['kicked'];
 	}
 
@@ -98,7 +102,7 @@ class Pheanstalk
 	public function listTubes()
 	{
 		return (array) $this->_dispatch(
-			new Pheanstalk_Command_ListTubesCommand()
+			new Command\ListTubesCommand()
 		);
 	}
 
@@ -110,7 +114,7 @@ class Pheanstalk
 	public function listTubesWatched()
 	{
 		return (array) $this->_dispatch(
-			new Pheanstalk_Command_ListTubesWatchedCommand()
+			new Command\ListTubesWatchedCommand()
 		);
 	}
 
@@ -122,7 +126,7 @@ class Pheanstalk
 	public function listTubeUsed()
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_ListTubeUsedCommand()
+			new Command\ListTubeUsedCommand()
 		);
 
 		return $response['tube'];
@@ -137,7 +141,7 @@ class Pheanstalk
 	 */
 	public function pauseTube($tube, $delay)
 	{
-		$this->_dispatch(new Pheanstalk_Command_PauseTubeCommand($tube, $delay));
+		$this->_dispatch(new Command\PauseTubeCommand($tube, $delay));
 		return $this;
 	}
 
@@ -145,57 +149,57 @@ class Pheanstalk
 	 * Inspect a job in the system, regardless of what tube it is in.
 	 *
 	 * @param int $jobId
-	 * @return object Pheanstalk_Job
+	 * @return object Job
 	 */
 	public function peek($jobId)
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_PeekCommand($jobId)
+			new Command\PeekCommand($jobId)
 		);
 
-		return new Pheanstalk_Job($response['id'], $response['jobdata']);
+		return new Job($response['id'], $response['jobdata']);
 	}
 
 	/**
 	 * Inspect the next ready job in the currently used tube.
 	 *
-	 * @return object Pheanstalk_Job
+	 * @return object Job
 	 */
 	public function peekReady()
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_PeekCommand(Pheanstalk_Command_PeekCommand::TYPE_READY)
+			new Command\PeekCommand(Command\PeekCommand::TYPE_READY)
 		);
 
-		return new Pheanstalk_Job($response['id'], $response['jobdata']);
+		return new Job($response['id'], $response['jobdata']);
 	}
 
 	/**
 	 * Inspect the shortest-remaining-delayed job in the currently used tube.
 	 *
-	 * @return object Pheanstalk_Job
+	 * @return object Job
 	 */
 	public function peekDelayed()
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_PeekCommand(Pheanstalk_Command_PeekCommand::TYPE_DELAYED)
+			new Command\PeekCommand(Command\PeekCommand::TYPE_DELAYED)
 		);
 
-		return new Pheanstalk_Job($response['id'], $response['jobdata']);
+		return new Job($response['id'], $response['jobdata']);
 	}
 
 	/**
 	 * Inspect the next job in the list of buried jobs of the currently used tube.
 	 *
-	 * @return object Pheanstalk_Job
+	 * @return object Job
 	 */
 	public function peekBuried()
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_PeekCommand(Pheanstalk_Command_PeekCommand::TYPE_BURIED)
+			new Command\PeekCommand(Command\PeekCommand::TYPE_BURIED)
 		);
 
-		return new Pheanstalk_Job($response['id'], $response['jobdata']);
+		return new Job($response['id'], $response['jobdata']);
 	}
 
 	/**
@@ -215,7 +219,7 @@ class Pheanstalk
 	)
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_PutCommand($data, $priority, $delay, $ttr)
+			new Command\PutCommand($data, $priority, $delay, $ttr)
 		);
 
 		return $response['id'];
@@ -227,7 +231,7 @@ class Pheanstalk
 	 * Marks the jobs state as "ready" to be run by any client.
 	 * It is normally used when the job fails because of a transitory error.
 	 *
-	 * @param object $job Pheanstalk_Job
+	 * @param object $job Job
 	 * @param int $priority From 0 (most urgent) to 0xFFFFFFFF (least urgent)
 	 * @param int $delay Seconds to wait before job becomes ready
 	 * @chainable
@@ -239,7 +243,7 @@ class Pheanstalk
 	)
 	{
 		$this->_dispatch(
-			new Pheanstalk_Command_ReleaseCommand($job, $priority, $delay)
+			new Command\ReleaseCommand($job, $priority, $delay)
 		);
 
 		return $this;
@@ -256,17 +260,17 @@ class Pheanstalk
 	 * available.
 	 *
 	 * @param int $timeout
-	 * @return object Pheanstalk_Job
+	 * @return object Job
 	 */
 	public function reserve($timeout = null)
 	{
 		$response = $this->_dispatch(
-			new Pheanstalk_Command_ReserveCommand($timeout)
+			new Command\ReserveCommand($timeout)
 		);
 
 		$falseResponses = array(
-			Pheanstalk_Response::RESPONSE_DEADLINE_SOON,
-			Pheanstalk_Response::RESPONSE_TIMED_OUT,
+			Response::RESPONSE_DEADLINE_SOON,
+			Response::RESPONSE_TIMED_OUT,
 		);
 
 		if (in_array($response->getResponseName(), $falseResponses))
@@ -275,19 +279,19 @@ class Pheanstalk
 		}
 		else
 		{
-			return new Pheanstalk_Job($response['id'], $response['jobdata']);
+			return new Job($response['id'], $response['jobdata']);
 		}
 	}
 
 	/**
 	 * Gives statistical information about the specified job if it exists.
 	 *
-	 * @param Pheanstalk_Job or int $job
+	 * @param Job or int $job
 	 * @return object
 	 */
 	public function statsJob($job)
 	{
-		return $this->_dispatch(new Pheanstalk_Command_StatsJobCommand($job));
+		return $this->_dispatch(new Command\StatsJobCommand($job));
 	}
 
 	/**
@@ -298,7 +302,7 @@ class Pheanstalk
 	 */
 	public function statsTube($tube)
 	{
-		return $this->_dispatch(new Pheanstalk_Command_StatsTubeCommand($tube));
+		return $this->_dispatch(new Command\StatsTubeCommand($tube));
 	}
 
 	/**
@@ -308,7 +312,7 @@ class Pheanstalk
 	 */
 	public function stats()
 	{
-		return $this->_dispatch(new Pheanstalk_Command_StatsCommand());
+		return $this->_dispatch(new Command\StatsCommand());
 	}
 
 	/**
@@ -319,12 +323,12 @@ class Pheanstalk
 	 * may periodically tell the server that it's still alive and processing a job
 	 * (e.g. it may do this on DEADLINE_SOON).
 	 *
-	 * @param Pheanstalk_Job $job
+	 * @param Job $job
 	 * @chainable
 	 */
 	public function touch($job)
 	{
-		$this->_dispatch(new Pheanstalk_Command_TouchCommand($job));
+		$this->_dispatch(new Command\TouchCommand($job));
 		return $this;
 	}
 
@@ -337,7 +341,7 @@ class Pheanstalk
 	 */
 	public function useTube($tube)
 	{
-		$this->_dispatch(new Pheanstalk_Command_UseCommand($tube));
+		$this->_dispatch(new Command\UseCommand($tube));
 		return $this;
 	}
 
@@ -349,7 +353,7 @@ class Pheanstalk
 	 */
 	public function watch($tube)
 	{
-		$this->_dispatch(new Pheanstalk_Command_WatchCommand($tube));
+		$this->_dispatch(new Command\WatchCommand($tube));
 		return $this;
 	}
 
@@ -357,7 +361,7 @@ class Pheanstalk
 
 	/**
 	 * @param Pheanstalk_Command $command
-	 * @return Pheanstalk_Response
+	 * @return Response
 	 */
 	private function _dispatch($command)
 	{
