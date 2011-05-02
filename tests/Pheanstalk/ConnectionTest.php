@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tests for the Pheanstalk_Connection.
+ * Tests for the \Pheanstalk\Connection.
  * Relies on a running beanstalkd server.
  *
  * @author Paul Annesley
@@ -16,19 +16,19 @@ class Pheanstalk_ConnectionTest
 
 	public function testConnectionFailsToIncorrectPort()
 	{
-		$connection = new Pheanstalk_Connection(
+		$connection = new \Pheanstalk\Connection(
 			self::SERVER_HOST,
 			self::SERVER_PORT + 1
 		);
 
-		$command = new Pheanstalk_Command_UseCommand('test');
+		$command = new \Pheanstalk\Command\UseCommand('test');
 		$this->expectException('Pheanstalk_Exception_ConnectionException');
 		$connection->dispatchCommand($command);
 	}
 
 	public function testDispatchCommandSuccessful()
 	{
-		$connection = new Pheanstalk_Connection(
+		$connection = new \Pheanstalk\Connection(
 			self::SERVER_HOST,
 			self::SERVER_PORT
 		);
@@ -44,7 +44,7 @@ class Pheanstalk_ConnectionTest
 
 	private function _getConnection()
 	{
-		return new Pheanstalk_Connection(self::SERVER_HOST, self::SERVER_PORT);
+		return new \Pheanstalk\Connection(self::SERVER_HOST, self::SERVER_PORT);
 	}
 }
 

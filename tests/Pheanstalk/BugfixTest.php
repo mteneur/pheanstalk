@@ -22,11 +22,11 @@ class Pheanstalk_BugfixTest
 		// missing version number
 		$data = "---\r\npid: 123\r\nversion: \r\nkey: value\r\n";
 
-		$command = new Pheanstalk_Command_StatsCommand();
+		$command = new \Pheanstalk\Command\StatsCommand();
 
 		$this->_assertResponse(
 			$command->getResponseParser()->parseResponse('OK '.strlen($data), $data),
-			Pheanstalk_Response::RESPONSE_OK,
+			\Pheanstalk\Response::RESPONSE_OK,
 			array('pid' => '123', 'version' => '', 'key' => 'value')
 		);
 	}
@@ -35,10 +35,10 @@ class Pheanstalk_BugfixTest
 	// private
 
 	/**
-	 * @param Pheanstalk_Response $response
+	 * @param \Pheanstalk\Response $response
 	 * @param string $expectName
 	 */
-	private function _assertResponse($response, $expectName, $data = array())
+	private function _assertResponse(\Pheanstalk\Response $response, $expectName, $data = array())
 	{
 		$this->assertEqual($response->getResponseName(), $expectName);
 		$this->assertEqual($response->getArrayCopy(), $data);

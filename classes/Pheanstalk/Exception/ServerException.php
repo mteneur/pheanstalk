@@ -9,6 +9,6 @@ namespace Pheanstalk\Exception;
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
 class ServerException
-	extends Exception
+	extends \Pheanstalk\Exception
 {
 }

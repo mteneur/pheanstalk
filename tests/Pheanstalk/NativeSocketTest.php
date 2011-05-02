@@ -14,18 +14,18 @@ class Pheanstalk_NativeSocketTest
 
 	public function setUp()
 	{
-		Mock::generate('Pheanstalk_Socket_StreamFunctions', 'MockStreamFunctions');
+		Mock::generate('\Pheanstalk\Socket\StreamFunctions', 'MockStreamFunctions');
 
 		$instance = new MockStreamFunctions();
 		$instance->setReturnValue('fsockopen', true);
 
-		Pheanstalk_Socket_StreamFunctions::setInstance($instance);
+		\Pheanstalk\Socket\StreamFunctions::setInstance($instance);
 		$this->_streamFunctions = $instance;
 	}
 
 	public function tearDown()
 	{
-		Pheanstalk_Socket_StreamFunctions::unsetInstance();
+		\Pheanstalk\Socket\StreamFunctions::unsetInstance();
 	}
 
 	public function testWrite()
@@ -35,7 +35,7 @@ class Pheanstalk_NativeSocketTest
 		$this->expectException('Pheanstalk_Exception_SocketException',
 			'Write should throw an exception if fwrite returns false');
 
-		$socket = new Pheanstalk_Socket_NativeSocket('host', 1024, 0);
+		$socket = new \Pheanstalk\Socket\NativeSocket('host', 1024, 0);
 		$socket->write('data');
 	}
 
@@ -46,7 +46,7 @@ class Pheanstalk_NativeSocketTest
 		$this->expectException('Pheanstalk_Exception_SocketException',
 			'Read should throw an exception if fread returns false');
 
-		$socket = new Pheanstalk_Socket_NativeSocket('host', 1024, 0);
+		$socket = new \Pheanstalk\Socket\NativeSocket('host', 1024, 0);
 		$socket->read(1);
 	}
 }

@@ -59,7 +59,7 @@ class Pheanstalk_BugfixConnectionTest
 
 	private function _createPheanstalk()
 	{
-		$pheanstalk = new Pheanstalk(self::SERVER_HOST);
+		$pheanstalk = new \Pheanstalk\Pheanstalk(self::SERVER_HOST);
 		$tube = preg_replace('#[^a-z]#', '', strtolower(__CLASS__));
 
 		$pheanstalk
@@ -68,10 +68,10 @@ class Pheanstalk_BugfixConnectionTest
 			->ignore('default');
 
 		try { while ($pheanstalk->delete($pheanstalk->peekDelayed())); }
-		catch (Pheanstalk_Exception_ServerException $e) {}
+		catch (\Pheanstalk\Exception\ServerException $e) {}
 
 		try { while ($pheanstalk->delete($pheanstalk->peekReady())); }
-		catch (Pheanstalk_Exception_ServerException $e) {}
+		catch (\Pheanstalk\Exception\ServerException $e) {}
 
 		return $pheanstalk;
 	}

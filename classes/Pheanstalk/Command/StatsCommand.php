@@ -14,7 +14,7 @@ class StatsCommand
 	extends AbstractCommand
 {
 	/* (non-phpdoc)
-	 * @see Pheanstalk_Command::getCommandLine()
+	 * @see \Pheanstalk\Command::getCommandLine()
 	 */
 	public function getCommandLine()
 	{
@@ -22,12 +22,12 @@ class StatsCommand
 	}
 
 	/* (non-phpdoc)
-	 * @see Pheanstalk_Command::getResponseParser()
+	 * @see \Pheanstalk\Command::getResponseParser()
 	 */
 	public function getResponseParser()
 	{
-		return new \Pheanstalk_YamlResponseParser(
-			Pheanstalk_YamlResponseParser::MODE_DICT
+		return new YamlResponseParser(
+			YamlResponseParser::MODE_DICT
 		);
 	}
 }
