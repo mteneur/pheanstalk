@@ -1,6 +1,6 @@
 <?php
 
-Mock::generate('Pheanstalk_Job', 'MockJob');
+Mock::generate('\Pheanstalk\Job', 'MockJob');
 
 /**
  * Tests exceptions thrown by Pheanstalk_ResponseParser implementations.
@@ -70,7 +70,7 @@ class Pheanstalk_ResponseParserExceptionTest
 
 	public function testPeekInvalidSubject()
 	{
-		$this->expectException('Pheanstalk_Exception_CommandException');
+		$this->expectException('\Pheanstalk\Exception\CommandException');
 		new \Pheanstalk\Command\PeekCommand('invalid');
 	}
 
@@ -115,7 +115,7 @@ class Pheanstalk_ResponseParserExceptionTest
 	 * @param string the response line to parse.
 	 * @param string the type of exception to expect.
 	 */
-	private function _expectExceptionForResponse($command, $response, $type = 'Pheanstalk_Exception')
+	private function _expectExceptionForResponse($command, $response, $type = '\Pheanstalk\Exception')
 	{
 		$this->expectException($type);
 		$command->parseResponse($response, null);
@@ -128,6 +128,6 @@ class Pheanstalk_ResponseParserExceptionTest
 	private function _expectServerExceptionForResponse($command, $response)
 	{
 		$this->_expectExceptionForResponse($command, $response,
-			'Pheanstalk_Exception_ServerException');
+			'\Pheanstalk\Exception\ServerException');
 	}
 }

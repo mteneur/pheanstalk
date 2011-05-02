@@ -22,7 +22,7 @@ class Pheanstalk_ConnectionTest
 		);
 
 		$command = new \Pheanstalk\Command\UseCommand('test');
-		$this->expectException('Pheanstalk_Exception_ConnectionException');
+		$this->expectException('\Pheanstalk\Exception\ConnectionException');
 		$connection->dispatchCommand($command);
 	}
 
@@ -33,10 +33,10 @@ class Pheanstalk_ConnectionTest
 			self::SERVER_PORT
 		);
 
-		$command = new Pheanstalk_Command_UseCommand('test');
+		$command = new \Pheanstalk\Command\UseCommand('test');
 		$response = $connection->dispatchCommand($command);
 
-		$this->assertIsA($response, 'Pheanstalk_Response');
+		$this->assertIsA($response, '\Pheanstalk\Response');
 	}
 
 	// ----------------------------------------

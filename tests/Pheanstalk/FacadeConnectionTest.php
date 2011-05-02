@@ -37,7 +37,7 @@ class Pheanstalk_FacadeConnectionTest
 	{
 		$pheanstalk = $this->_getFacade();
 
-		$this->expectException('Pheanstalk_Exception');
+		$this->expectException('\Pheanstalk\Exception');
 		$pheanstalk->ignore('default');
 	}
 
@@ -50,7 +50,7 @@ class Pheanstalk_FacadeConnectionTest
 
 		// reserve a job - can't assume it is the one just added
 		$job = $pheanstalk->reserve();
-		$this->assertIsA($job, 'Pheanstalk_Job');
+		$this->assertIsA($job, '\Pheanstalk\Job');
 
 		// delete the reserved job
 		$pheanstalk->delete($job);
@@ -74,7 +74,7 @@ class Pheanstalk_FacadeConnectionTest
 
 		// reserve a job - can't assume it is the one just added
 		$job = $pheanstalk->reserve();
-		$this->assertIsA($job, 'Pheanstalk_Job');
+		$this->assertIsA($job, '\Pheanstalk\Job');
 
 		// bury the reserved job
 		$pheanstalk->bury($job);
@@ -90,7 +90,7 @@ class Pheanstalk_FacadeConnectionTest
 	{
 		$pheanstalk = $this->_getFacade();
 
-		$this->expectException('Pheanstalk_Exception');
+		$this->expectException('\Pheanstalk\Exception');
 		$pheanstalk->put(str_repeat('0', 0x10000));
 	}
 
@@ -194,9 +194,9 @@ class Pheanstalk_FacadeConnectionTest
 		$this->assertEqual($stats->id, $id);
 		$this->assertEqual($stats->tube, 'teststatsjob');
 		$this->assertEqual($stats->state, 'ready');
-		$this->assertEqual($stats->pri, Pheanstalk::DEFAULT_PRIORITY);
-		$this->assertEqual($stats->delay, Pheanstalk::DEFAULT_DELAY);
-		$this->assertEqual($stats->ttr, Pheanstalk::DEFAULT_TTR);
+		$this->assertEqual($stats->pri, \Pheanstalk\Pheanstalk::DEFAULT_PRIORITY);
+		$this->assertEqual($stats->delay, \Pheanstalk\Pheanstalk::DEFAULT_DELAY);
+		$this->assertEqual($stats->ttr, \Pheanstalk\Pheanstalk::DEFAULT_TTR);
 		$this->assertEqual($stats->timeouts, 0);
 		$this->assertEqual($stats->releases, 0);
 		$this->assertEqual($stats->buries, 0);
@@ -221,9 +221,9 @@ class Pheanstalk_FacadeConnectionTest
 		$this->assertEqual($stats->id, $job->getId());
 		$this->assertEqual($stats->tube, 'teststatsjobwithjobobject');
 		$this->assertEqual($stats->state, 'reserved');
-		$this->assertEqual($stats->pri, Pheanstalk::DEFAULT_PRIORITY);
-		$this->assertEqual($stats->delay, Pheanstalk::DEFAULT_DELAY);
-		$this->assertEqual($stats->ttr, Pheanstalk::DEFAULT_TTR);
+		$this->assertEqual($stats->pri, \Pheanstalk\Pheanstalk::DEFAULT_PRIORITY);
+		$this->assertEqual($stats->delay, \Pheanstalk\Pheanstalk::DEFAULT_DELAY);
+		$this->assertEqual($stats->ttr, \Pheanstalk\Pheanstalk::DEFAULT_TTR);
 		$this->assertEqual($stats->timeouts, 0);
 		$this->assertEqual($stats->releases, 0);
 		$this->assertEqual($stats->buries, 0);
@@ -285,7 +285,7 @@ class Pheanstalk_FacadeConnectionTest
 
 	private function _getFacade()
 	{
-		return new Pheanstalk(self::SERVER_HOST);
+		return new \Pheanstalk\Pheanstalk(self::SERVER_HOST);
 	}
 }
 

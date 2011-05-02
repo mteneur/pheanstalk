@@ -1,6 +1,6 @@
 <?php
 
-Mock::generate('Pheanstalk_Job', 'MockJob');
+Mock::generate('\Pheanstalk\Job', 'MockJob');
 
 /**
  * Tests for Pheanstalk_Command implementations.

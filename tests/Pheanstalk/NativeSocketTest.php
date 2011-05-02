@@ -32,7 +32,7 @@ class Pheanstalk_NativeSocketTest
 	{
 		$this->_streamFunctions->setReturnValue('fwrite', false);
 
-		$this->expectException('Pheanstalk_Exception_SocketException',
+		$this->expectException('\Pheanstalk\Exception\SocketException',
 			'Write should throw an exception if fwrite returns false');
 
 		$socket = new \Pheanstalk\Socket\NativeSocket('host', 1024, 0);
@@ -43,7 +43,7 @@ class Pheanstalk_NativeSocketTest
 	{
 		$this->_streamFunctions->setReturnValue('fread', false);
 
-		$this->expectException('Pheanstalk_Exception_SocketException',
+		$this->expectException('\Pheanstalk\Exception\SocketException',
 			'Read should throw an exception if fread returns false');
 
 		$socket = new \Pheanstalk\Socket\NativeSocket('host', 1024, 0);

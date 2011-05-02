@@ -9,7 +9,7 @@ use Pheanstalk\Response;
  * @package Pheanstalk
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
-class Pheanstalk_Connection
+class Connection
 {
 	const CRLF = "\r\n";
 	const CRLF_LENGTH = 2;
@@ -86,7 +86,7 @@ class Pheanstalk_Connection
 		if (isset($this->_errorResponses[$responseName]))
 		{
 			$exception = sprintf(
-				'Pheanstalk_Exception_Server%sException',
+				'\Pheanstalk\Exception\Server%sException',
 				$this->_errorResponses[$responseName]
 			);
 

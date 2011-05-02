@@ -47,9 +47,9 @@ class Pheanstalk_ClassLoader
 		$path = sprintf(
 			'%s/%s.php',
 			self::$_path,
-			str_replace('_', '/', $class)
+			str_replace('\\', '/', $class)
 		);
-
+        echo "AAAAH! $path\n";
 		if (file_exists($path)) require_once($path);
 	}
 

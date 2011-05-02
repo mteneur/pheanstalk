@@ -1,6 +1,6 @@
 <?php
 
-Mock::generate('Pheanstalk_Socket', 'MockSocket');
+Mock::generate('\Pheanstalk\Socket', 'MockSocket');
 
 /**
  * Tests exceptions thrown to represent non-command-specific error responses.
@@ -28,7 +28,7 @@ class Pheanstalk_ServerErrorExceptionTest
 		$socket = new MockSocket();
 		$socket->setReturnValue('getLine', $line);
 
-		$connection = new Pheanstalk_Connection(null, null);
+		$connection = new \Pheanstalk\Connection(null, null);
 		$connection->setSocket($socket);
 		return $connection;
 	}

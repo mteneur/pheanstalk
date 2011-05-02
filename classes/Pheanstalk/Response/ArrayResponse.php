@@ -9,7 +9,7 @@ namespace Pheanstalk\Response;
  * @licence http://www.opensource.org/licenses/mit-license.php
  */
 class ArrayResponse
-	extends ArrayObject
+	extends \ArrayObject
 	implements \Pheanstalk\Response
 {
 	private $_name;
