@@ -49,7 +49,6 @@ class Pheanstalk_ClassLoader
 			self::$_path,
 			str_replace('\\', '/', $class)
 		);
-        echo "AAAAH! $path\n";
 		if (file_exists($path)) require_once($path);
 	}
 
