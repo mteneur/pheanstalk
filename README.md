@@ -1,9 +1,9 @@
-Pheanstalk
-==========
+Pheanstalk PHP 5.3 fork
+=======================
 
-Pheanstalk is a pure PHP 5.2+ client for the [beanstalkd workqueue][1].  It has been actively developed, and used in production by many, since late 2008.
+Pheanstalk is a pure PHP 5.3+ client for the [beanstalkd workqueue][1].  It has been actively developed, and used in production by many, since late 2008.
 
-Created by [Paul Annesley][2], Pheanstalk is rigorously unit tested and written using encapsulated, maintainable object oriented design.  Community feedback, bug reports and patches has led to a stable 1.0.0 release in 2010.
+Created by [Paul Annesley][2], modified by [Brian Nelson][5] for PHP 5.3 namespaces, Pheanstalk is rigorously unit tested and written using encapsulated, maintainable object oriented design.  Community feedback, bug reports and patches has led to a stable 1.0.0 release in 2010.
 
 beanstalkd up to the latest version 1.4 is supported.  All commands and responses specified in the [protocol documentation][3] for beanstalkd 1.3 are implemented.
 
@@ -11,6 +11,7 @@ beanstalkd up to the latest version 1.4 is supported.  All commands and response
   [2]: http://paul.annesley.cc/
   [3]: http://github.com/kr/beanstalkd/tree/v1.3/doc/protocol.txt?raw=true
   [4]: http://semver.org/
+  [5]: https://github.com/mrpoundsign/
 
 
 Usage Example
@@ -22,7 +23,7 @@ Usage Example
 // register Pheanstalk class loader
 require_once('pheanstalk_init.php');
 
-$pheanstalk = new Pheanstalk('127.0.0.1');
+$pheanstalk = new \Pheanstalk('127.0.0.1');
 
 // ----------------------------------------
 // producer (queues jobs)
@@ -92,6 +93,7 @@ Contributors
   * [leprechaun](https://github.com/leprechaun)
   * [Peter McArthur](https://github.com/ptrmcrthr)
   * [robbiehudson](https://github.com/robbiehudson)
+  * [Brian Nelson](https://github.com/mrpoundsign)
   * .. more? Let me know if you're missing.
 
 
