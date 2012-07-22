@@ -1,10 +1,20 @@
 {
-    "name": "mrpoundsign/pheanstalk-5.3",
-    "description": "Pure PHP5.3 client for the Beanstalk queueing system",
+    "name": "mteneur/pheanstalk-5.3",
+    "description": "Pure PHP5.3 client for the Beanstalk queueing system. Alls credits belong to author,  Paul Annesley",
     "license": "MIT",
     "require": {
         "php": ">=5.3.0"
     },
+    "authors":[{
+        "name": "Brian Nelson",
+        "homepage": "https://github.com/mrpoundsign"
+    },
+    {
+        "name":"Paul Annesley",
+        "homepage": "https://github.com/pda"
+    }]
+
+
     "autoload": {
         "psr-0": {"Pheanstalk": "classes/"}
     }
