@@ -1,5 +1,5 @@
 {
-    "name": "mteneur/pheanstalk-5.3",
+    "name": "mrpoundsign/pheanstalk-5.3",
     "description": "Pure PHP5.3 client for the Beanstalk queueing system. Alls credits belong to author,  Paul Annesley",
     "license": "MIT",
     "require": {
